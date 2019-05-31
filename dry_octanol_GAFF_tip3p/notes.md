@@ -55,6 +55,24 @@ default_number_of_iterations: 5000
 anisotropic_dispersion_cutoff: 12.0*angstroms  
 hydrogen_mass: 1.0*amu  
 
+## 2019/05/31
 
+Most of the jobs completed. Run ` check_incomplete_runs.py` to see which systems were not completed.  
 
+`./dry_runs/t1`
+Incomplete systems:
+['SM04_octanol_0.0_1.0_GAFF_tip3p_equil', 'Celiprolol_octanol_0.0_1.0_GAFF_tip3p_equil', 'rPropranolol_octanol_0.0_1.0_GAFF_tip3p_equil', 'SM07_octanol_0.0_1.0_GAFF_tip3p_equil']
+Completed: 34/38
+
+`./dry_runs/t2`
+Incomplete systems:
+['Celiprolol_octanol_0.0_1.0_GAFF_tip3p_equil', '4Pentoxyphenol_octanol_0.0_1.0_GAFF_tip3p_equil']
+Completed: 36/38
+
+`./dry_runs/t3`
+Incomplete systems:
+['SM13_octanol_0.0_1.0_GAFF_tip3p_equil', 'Celiprolol_octanol_0.0_1.0_GAFF_tip3p_equil']
+Completed: 36/38
+
+I resubmitted the array jobs to give these a second try for finishing.
 
