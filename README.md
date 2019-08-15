@@ -9,7 +9,7 @@ For information about SAMPL6 Challenge: [SAMPL6 GitHub Repository](https://githu
 ## Manifest
 
 - `dry_octanol_GAFF_tip3p/` - This directory contains files related to YANK calculations of dry octanol and water phases, with GAFF forcefiled and TIP3P water model.
-
+- `dry_octanol_SMIRNOFF_tip3p/` - This directory contains files related to YANK calculations of dry octanol and water phases, with SMIRNOFF forcefiled and TIP3P water model.
 
 ## Contributors
 
