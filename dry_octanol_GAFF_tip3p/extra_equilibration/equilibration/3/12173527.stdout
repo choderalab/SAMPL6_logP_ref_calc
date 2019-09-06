@@ -1,0 +1,629 @@
+Sender: LSF System <lsfadmin@lt14>
+Subject: Job 12173527[1]: <GAFF_t1[1-6]> in cluster <lila> Done
+
+Job <GAFF_t1[1-6]> was submitted from host <lilac> by user <misik> in cluster <lila> at Fri Sep  6 16:39:49 2019
+Job was executed on host(s) <lt14>, in queue <gpuqueue>, as user <misik> in cluster <lila> at Fri Sep  6 16:39:50 2019
+</home/misik> was used as the home directory.
+</data/chodera/misik/SAMPL6_logP_ref_calc/dry_octanol_GAFF_tip3p/extra_equilibration/equilibration/3> was used as the working directory.
+Started at Fri Sep  6 16:39:50 2019
+Terminated at Fri Sep  6 16:40:54 2019
+Results reported at Fri Sep  6 16:40:54 2019
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J GAFF_t1[1-6] 
+#BSUB -n 1
+#BSUB -R rusage[mem=4]
+#BSUB -R span[hosts=1]
+#BSUB -q gpuqueue
+#BSUB -gpu "num=1:j_exclusive=yes:mode=shared"
+#BSUB -W  0:30
+#BSUB -We 1:00
+#BSUB -m "ld-gpu ls-gpu lt-gpu lp-gpu lg-gpu"
+#BSUB -o %J.stdout
+#BSUB -eo %J.stderr
+#BSUB -L /bin/bash
+
+# Set job directory
+cd $LS_SUBCWD
+echo “Job directory: ${LS_SUBCWD}”
+
+
+# Activate environment
+source activate SAMPL6_logP
+conda list --export > requirements.txt
+
+# Setting job_id is for running only the first job from the array.                   
+# job_id=1 # for single job                                                                            
+n_jobs=6
+
+
+# Launch my program.
+module load cuda/9.2
+#module load cuda/9.1.85
+#nvcc -V
+
+# Run the simulation. 
+
+# Single job
+#echo "Running single job ${job_id}/${n_jobs}..."
+#python run2.py ${job_id} ${n_jobs}
+
+#Array Job
+echo "Running array job $LSB_JOBINDEX/${n_jobs}..."
+echo $LSB_JOBINDEX >> job_indices.txt 
+python run2.py $LSB_JOBINDEX ${n_jobs}
+echo "Done!" 
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   58.86 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     4.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              7
+    Max Threads :                                84
+    Run time :                                   66 sec.
+    Turnaround time :                            65 sec.
+
+The output (if any) follows:
+
+“Job directory: /data/chodera/misik/SAMPL6_logP_ref_calc/dry_octanol_GAFF_tip3p/extra_equilibration/equilibration/3”
+Running array job 1/6...
+XML_filepath: ../../equilibration/3/GS_systems/Ketoprofen_octanol_0.0_1.0_GAFF_tip3p.xml
+Node 1: Running Ketoprofen_octanol_0.0_1.0
+Minimizing...
+
+100ps NVT...
+
+First NPT equilibration...
+
+Second NPT equilibration...
+
+Node 1: Skipping Ketoprofen_water_0.0_1.0
+Node 1: Skipping Pericyazine_octanol_0.0_1.0
+Node 1: Skipping Pericyazine_water_0.0_1.0
+Node 1: Skipping SM04_octanol_0.0_1.0
+Node 1: Skipping SM04_water_0.0_1.0
+Done!
+
+
+PS:
+
+Read file <12173527.stderr> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@ls13>
+Subject: Job 12173527[2]: <GAFF_t1[1-6]> in cluster <lila> Done
+
+Job <GAFF_t1[1-6]> was submitted from host <lilac> by user <misik> in cluster <lila> at Fri Sep  6 16:39:49 2019
+Job was executed on host(s) <ls13>, in queue <gpuqueue>, as user <misik> in cluster <lila> at Fri Sep  6 16:39:50 2019
+</home/misik> was used as the home directory.
+</data/chodera/misik/SAMPL6_logP_ref_calc/dry_octanol_GAFF_tip3p/extra_equilibration/equilibration/3> was used as the working directory.
+Started at Fri Sep  6 16:39:50 2019
+Terminated at Fri Sep  6 16:40:55 2019
+Results reported at Fri Sep  6 16:40:55 2019
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J GAFF_t1[1-6] 
+#BSUB -n 1
+#BSUB -R rusage[mem=4]
+#BSUB -R span[hosts=1]
+#BSUB -q gpuqueue
+#BSUB -gpu "num=1:j_exclusive=yes:mode=shared"
+#BSUB -W  0:30
+#BSUB -We 1:00
+#BSUB -m "ld-gpu ls-gpu lt-gpu lp-gpu lg-gpu"
+#BSUB -o %J.stdout
+#BSUB -eo %J.stderr
+#BSUB -L /bin/bash
+
+# Set job directory
+cd $LS_SUBCWD
+echo “Job directory: ${LS_SUBCWD}”
+
+
+# Activate environment
+source activate SAMPL6_logP
+conda list --export > requirements.txt
+
+# Setting job_id is for running only the first job from the array.                   
+# job_id=1 # for single job                                                                            
+n_jobs=6
+
+
+# Launch my program.
+module load cuda/9.2
+#module load cuda/9.1.85
+#nvcc -V
+
+# Run the simulation. 
+
+# Single job
+#echo "Running single job ${job_id}/${n_jobs}..."
+#python run2.py ${job_id} ${n_jobs}
+
+#Array Job
+echo "Running array job $LSB_JOBINDEX/${n_jobs}..."
+echo $LSB_JOBINDEX >> job_indices.txt 
+python run2.py $LSB_JOBINDEX ${n_jobs}
+echo "Done!" 
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   61.09 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     4.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              7
+    Max Threads :                                84
+    Run time :                                   66 sec.
+    Turnaround time :                            66 sec.
+
+The output (if any) follows:
+
+“Job directory: /data/chodera/misik/SAMPL6_logP_ref_calc/dry_octanol_GAFF_tip3p/extra_equilibration/equilibration/3”
+Running array job 2/6...
+Node 2: Skipping Ketoprofen_octanol_0.0_1.0
+XML_filepath: ../../equilibration/3/GS_systems/Ketoprofen_water_0.0_1.0_GAFF_tip3p.xml
+Node 2: Running Ketoprofen_water_0.0_1.0
+Minimizing...
+
+100ps NVT...
+
+First NPT equilibration...
+
+Second NPT equilibration...
+
+Node 2: Resuming from ../../equilibration/3/equil_results/equil_done.json
+Node 2: Skipping Pericyazine_octanol_0.0_1.0
+Node 2: Skipping Pericyazine_water_0.0_1.0
+Node 2: Skipping SM04_octanol_0.0_1.0
+Node 2: Skipping SM04_water_0.0_1.0
+Done!
+
+
+PS:
+
+Read file <12173527.stderr> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@ls18>
+Subject: Job 12173527[5]: <GAFF_t1[1-6]> in cluster <lila> Done
+
+Job <GAFF_t1[1-6]> was submitted from host <lilac> by user <misik> in cluster <lila> at Fri Sep  6 16:39:49 2019
+Job was executed on host(s) <ls18>, in queue <gpuqueue>, as user <misik> in cluster <lila> at Fri Sep  6 16:39:50 2019
+</home/misik> was used as the home directory.
+</data/chodera/misik/SAMPL6_logP_ref_calc/dry_octanol_GAFF_tip3p/extra_equilibration/equilibration/3> was used as the working directory.
+Started at Fri Sep  6 16:39:50 2019
+Terminated at Fri Sep  6 16:40:57 2019
+Results reported at Fri Sep  6 16:40:57 2019
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J GAFF_t1[1-6] 
+#BSUB -n 1
+#BSUB -R rusage[mem=4]
+#BSUB -R span[hosts=1]
+#BSUB -q gpuqueue
+#BSUB -gpu "num=1:j_exclusive=yes:mode=shared"
+#BSUB -W  0:30
+#BSUB -We 1:00
+#BSUB -m "ld-gpu ls-gpu lt-gpu lp-gpu lg-gpu"
+#BSUB -o %J.stdout
+#BSUB -eo %J.stderr
+#BSUB -L /bin/bash
+
+# Set job directory
+cd $LS_SUBCWD
+echo “Job directory: ${LS_SUBCWD}”
+
+
+# Activate environment
+source activate SAMPL6_logP
+conda list --export > requirements.txt
+
+# Setting job_id is for running only the first job from the array.                   
+# job_id=1 # for single job                                                                            
+n_jobs=6
+
+
+# Launch my program.
+module load cuda/9.2
+#module load cuda/9.1.85
+#nvcc -V
+
+# Run the simulation. 
+
+# Single job
+#echo "Running single job ${job_id}/${n_jobs}..."
+#python run2.py ${job_id} ${n_jobs}
+
+#Array Job
+echo "Running array job $LSB_JOBINDEX/${n_jobs}..."
+echo $LSB_JOBINDEX >> job_indices.txt 
+python run2.py $LSB_JOBINDEX ${n_jobs}
+echo "Done!" 
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   61.10 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     4.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              7
+    Max Threads :                                85
+    Run time :                                   68 sec.
+    Turnaround time :                            68 sec.
+
+The output (if any) follows:
+
+“Job directory: /data/chodera/misik/SAMPL6_logP_ref_calc/dry_octanol_GAFF_tip3p/extra_equilibration/equilibration/3”
+Running array job 5/6...
+Node 5: Skipping Ketoprofen_octanol_0.0_1.0
+Node 5: Skipping Ketoprofen_water_0.0_1.0
+Node 5: Skipping Pericyazine_octanol_0.0_1.0
+Node 5: Skipping Pericyazine_water_0.0_1.0
+XML_filepath: ../../equilibration/3/GS_systems/SM04_octanol_0.0_1.0_GAFF_tip3p.xml
+Node 5: Running SM04_octanol_0.0_1.0
+Minimizing...
+
+100ps NVT...
+
+First NPT equilibration...
+
+Second NPT equilibration...
+
+Node 5: Resuming from ../../equilibration/3/equil_results/equil_done.json
+Node 5: Skipping SM04_water_0.0_1.0
+Done!
+
+
+PS:
+
+Read file <12173527.stderr> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@ls15>
+Subject: Job 12173527[6]: <GAFF_t1[1-6]> in cluster <lila> Done
+
+Job <GAFF_t1[1-6]> was submitted from host <lilac> by user <misik> in cluster <lila> at Fri Sep  6 16:39:49 2019
+Job was executed on host(s) <ls15>, in queue <gpuqueue>, as user <misik> in cluster <lila> at Fri Sep  6 16:39:50 2019
+</home/misik> was used as the home directory.
+</data/chodera/misik/SAMPL6_logP_ref_calc/dry_octanol_GAFF_tip3p/extra_equilibration/equilibration/3> was used as the working directory.
+Started at Fri Sep  6 16:39:50 2019
+Terminated at Fri Sep  6 16:41:03 2019
+Results reported at Fri Sep  6 16:41:03 2019
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J GAFF_t1[1-6] 
+#BSUB -n 1
+#BSUB -R rusage[mem=4]
+#BSUB -R span[hosts=1]
+#BSUB -q gpuqueue
+#BSUB -gpu "num=1:j_exclusive=yes:mode=shared"
+#BSUB -W  0:30
+#BSUB -We 1:00
+#BSUB -m "ld-gpu ls-gpu lt-gpu lp-gpu lg-gpu"
+#BSUB -o %J.stdout
+#BSUB -eo %J.stderr
+#BSUB -L /bin/bash
+
+# Set job directory
+cd $LS_SUBCWD
+echo “Job directory: ${LS_SUBCWD}”
+
+
+# Activate environment
+source activate SAMPL6_logP
+conda list --export > requirements.txt
+
+# Setting job_id is for running only the first job from the array.                   
+# job_id=1 # for single job                                                                            
+n_jobs=6
+
+
+# Launch my program.
+module load cuda/9.2
+#module load cuda/9.1.85
+#nvcc -V
+
+# Run the simulation. 
+
+# Single job
+#echo "Running single job ${job_id}/${n_jobs}..."
+#python run2.py ${job_id} ${n_jobs}
+
+#Array Job
+echo "Running array job $LSB_JOBINDEX/${n_jobs}..."
+echo $LSB_JOBINDEX >> job_indices.txt 
+python run2.py $LSB_JOBINDEX ${n_jobs}
+echo "Done!" 
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   67.07 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     4.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              8
+    Max Threads :                                85
+    Run time :                                   74 sec.
+    Turnaround time :                            74 sec.
+
+The output (if any) follows:
+
+“Job directory: /data/chodera/misik/SAMPL6_logP_ref_calc/dry_octanol_GAFF_tip3p/extra_equilibration/equilibration/3”
+Running array job 6/6...
+Node 6: Skipping Ketoprofen_octanol_0.0_1.0
+Node 6: Skipping Ketoprofen_water_0.0_1.0
+Node 6: Skipping Pericyazine_octanol_0.0_1.0
+Node 6: Skipping Pericyazine_water_0.0_1.0
+Node 6: Skipping SM04_octanol_0.0_1.0
+XML_filepath: ../../equilibration/3/GS_systems/SM04_water_0.0_1.0_GAFF_tip3p.xml
+Node 6: Running SM04_water_0.0_1.0
+Minimizing...
+
+100ps NVT...
+
+First NPT equilibration...
+
+Second NPT equilibration...
+
+Node 6: Resuming from ../../equilibration/3/equil_results/equil_done.json
+Done!
+
+
+PS:
+
+Read file <12173527.stderr> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@lt06>
+Subject: Job 12173527[4]: <GAFF_t1[1-6]> in cluster <lila> Done
+
+Job <GAFF_t1[1-6]> was submitted from host <lilac> by user <misik> in cluster <lila> at Fri Sep  6 16:39:49 2019
+Job was executed on host(s) <lt06>, in queue <gpuqueue>, as user <misik> in cluster <lila> at Fri Sep  6 16:39:50 2019
+</home/misik> was used as the home directory.
+</data/chodera/misik/SAMPL6_logP_ref_calc/dry_octanol_GAFF_tip3p/extra_equilibration/equilibration/3> was used as the working directory.
+Started at Fri Sep  6 16:39:50 2019
+Terminated at Fri Sep  6 16:41:04 2019
+Results reported at Fri Sep  6 16:41:04 2019
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J GAFF_t1[1-6] 
+#BSUB -n 1
+#BSUB -R rusage[mem=4]
+#BSUB -R span[hosts=1]
+#BSUB -q gpuqueue
+#BSUB -gpu "num=1:j_exclusive=yes:mode=shared"
+#BSUB -W  0:30
+#BSUB -We 1:00
+#BSUB -m "ld-gpu ls-gpu lt-gpu lp-gpu lg-gpu"
+#BSUB -o %J.stdout
+#BSUB -eo %J.stderr
+#BSUB -L /bin/bash
+
+# Set job directory
+cd $LS_SUBCWD
+echo “Job directory: ${LS_SUBCWD}”
+
+
+# Activate environment
+source activate SAMPL6_logP
+conda list --export > requirements.txt
+
+# Setting job_id is for running only the first job from the array.                   
+# job_id=1 # for single job                                                                            
+n_jobs=6
+
+
+# Launch my program.
+module load cuda/9.2
+#module load cuda/9.1.85
+#nvcc -V
+
+# Run the simulation. 
+
+# Single job
+#echo "Running single job ${job_id}/${n_jobs}..."
+#python run2.py ${job_id} ${n_jobs}
+
+#Array Job
+echo "Running array job $LSB_JOBINDEX/${n_jobs}..."
+echo $LSB_JOBINDEX >> job_indices.txt 
+python run2.py $LSB_JOBINDEX ${n_jobs}
+echo "Done!" 
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   71.83 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     4.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              7
+    Max Threads :                                84
+    Run time :                                   74 sec.
+    Turnaround time :                            75 sec.
+
+The output (if any) follows:
+
+“Job directory: /data/chodera/misik/SAMPL6_logP_ref_calc/dry_octanol_GAFF_tip3p/extra_equilibration/equilibration/3”
+Running array job 4/6...
+Node 4: Skipping Ketoprofen_octanol_0.0_1.0
+Node 4: Skipping Ketoprofen_water_0.0_1.0
+Node 4: Skipping Pericyazine_octanol_0.0_1.0
+XML_filepath: ../../equilibration/3/GS_systems/Pericyazine_water_0.0_1.0_GAFF_tip3p.xml
+Node 4: Running Pericyazine_water_0.0_1.0
+Minimizing...
+
+100ps NVT...
+
+First NPT equilibration...
+
+Second NPT equilibration...
+
+Node 4: Resuming from ../../equilibration/3/equil_results/equil_done.json
+Node 4: Skipping SM04_octanol_0.0_1.0
+Node 4: Skipping SM04_water_0.0_1.0
+Done!
+
+
+PS:
+
+Read file <12173527.stderr> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@lt06>
+Subject: Job 12173527[3]: <GAFF_t1[1-6]> in cluster <lila> Done
+
+Job <GAFF_t1[1-6]> was submitted from host <lilac> by user <misik> in cluster <lila> at Fri Sep  6 16:39:49 2019
+Job was executed on host(s) <lt06>, in queue <gpuqueue>, as user <misik> in cluster <lila> at Fri Sep  6 16:39:50 2019
+</home/misik> was used as the home directory.
+</data/chodera/misik/SAMPL6_logP_ref_calc/dry_octanol_GAFF_tip3p/extra_equilibration/equilibration/3> was used as the working directory.
+Started at Fri Sep  6 16:39:50 2019
+Terminated at Fri Sep  6 16:41:14 2019
+Results reported at Fri Sep  6 16:41:14 2019
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J GAFF_t1[1-6] 
+#BSUB -n 1
+#BSUB -R rusage[mem=4]
+#BSUB -R span[hosts=1]
+#BSUB -q gpuqueue
+#BSUB -gpu "num=1:j_exclusive=yes:mode=shared"
+#BSUB -W  0:30
+#BSUB -We 1:00
+#BSUB -m "ld-gpu ls-gpu lt-gpu lp-gpu lg-gpu"
+#BSUB -o %J.stdout
+#BSUB -eo %J.stderr
+#BSUB -L /bin/bash
+
+# Set job directory
+cd $LS_SUBCWD
+echo “Job directory: ${LS_SUBCWD}”
+
+
+# Activate environment
+source activate SAMPL6_logP
+conda list --export > requirements.txt
+
+# Setting job_id is for running only the first job from the array.                   
+# job_id=1 # for single job                                                                            
+n_jobs=6
+
+
+# Launch my program.
+module load cuda/9.2
+#module load cuda/9.1.85
+#nvcc -V
+
+# Run the simulation. 
+
+# Single job
+#echo "Running single job ${job_id}/${n_jobs}..."
+#python run2.py ${job_id} ${n_jobs}
+
+#Array Job
+echo "Running array job $LSB_JOBINDEX/${n_jobs}..."
+echo $LSB_JOBINDEX >> job_indices.txt 
+python run2.py $LSB_JOBINDEX ${n_jobs}
+echo "Done!" 
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   81.20 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     4.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              7
+    Max Threads :                                301
+    Run time :                                   83 sec.
+    Turnaround time :                            85 sec.
+
+The output (if any) follows:
+
+“Job directory: /data/chodera/misik/SAMPL6_logP_ref_calc/dry_octanol_GAFF_tip3p/extra_equilibration/equilibration/3”
+Running array job 3/6...
+Node 3: Skipping Ketoprofen_octanol_0.0_1.0
+Node 3: Skipping Ketoprofen_water_0.0_1.0
+XML_filepath: ../../equilibration/3/GS_systems/Pericyazine_octanol_0.0_1.0_GAFF_tip3p.xml
+Node 3: Running Pericyazine_octanol_0.0_1.0
+Minimizing...
+
+100ps NVT...
+
+First NPT equilibration...
+
+Second NPT equilibration...
+
+Node 3: Resuming from ../../equilibration/3/equil_results/equil_done.json
+Node 3: Skipping Pericyazine_water_0.0_1.0
+Node 3: Skipping SM04_octanol_0.0_1.0
+Node 3: Skipping SM04_water_0.0_1.0
+Done!
+
+
+PS:
+
+Read file <12173527.stderr> for stderr output of this job.
+
