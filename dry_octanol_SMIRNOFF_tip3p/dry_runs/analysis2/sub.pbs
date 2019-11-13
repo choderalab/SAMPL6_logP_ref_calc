@@ -1,0 +1,23 @@
+#!/bin/bash
+#PBS -N trial1
+#PBS -q glean
+#PBS -A mobley-bergazin
+#PBS -l nodes=1:ppn=4:gpu
+#PBS -l walltime=1:00:00
+#PBS -M bergazin@uci.edu
+#PBS -j oe
+
+. $HOME/anaconda3/etc/profile.d/conda.sh
+conda activate
+conda activate sampl-2
+conda list
+cd ${PBS_O_WORKDIR}
+echo "Job directory: ${PBS_O_WORKDIR}"
+echo "Nodes chosen are:"
+cat $PBS_NODEFILE
+module load cuda/9.1.85
+nvcc -V
+
+python test1.py
+
+conda deactivate sampl-2

@@ -63,3 +63,38 @@ $ python test_SAMPL6_molecules.py
 $ python test_extra_molecules.py
 
 All runs are completed properly.
+
+
+
+## 2019/11/07
+
+### CORRECTION OF LAMBDA STERICS PROTOCOL
+
+We realized the previous lambda schedule used for water phase was wrong. 
+The protocol used to decouple the Lennard-Jones interactions for the water phase was not appropriate. 
+Our protocol did not scale steric interactions ( $\lambda$ = [1.00, 1.00, 1.00, 1.00, 1.00]). 
+This choice would have been appropriate for a vacuum phase, but not for water phase.  
+In the DFE protocol as implemented the thermodynamic cycle do not close because the calculations do not account for turning on Lennard-Jones interactions of the molecule in water phase. 
+The correct alchemical protocol would be the same protocol used for the octanol phase.
+
+#### Tasks for this correction:
+
+(1) Update protocol of solvent 2 in yank.yaml.
+
+protocols:
+    hydration-protocol:
+        solvent1:
+            alchemical_path:
+                lambda_electrostatics: [1.00, 0.75, 0.50, 0.25, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
+                lambda_sterics: [1.00, 1.00, 1.00, 1.00, 1.00, 0.95, 0.90, 0.80, 0.70, 0.60, 0.50, 0.40, 0.35, 0.30, 0.25, 0.20, 0.15, 0.10, 0.05, 0.00]
+        solvent2:
+            alchemical_path:
+                lambda_electrostatics: [1.00, 0.75, 0.50, 0.25, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
+                lambda_sterics: [1.00, 1.00, 1.00, 1.00, 1.00, 0.95, 0.90, 0.80, 0.70, 0.60, 0.50, 0.40, 0.35, 0.30, 0.25, 0.20, 0.15, 0.10, 0.05, 0.00]
+
+(2) Delete solvent2.nc file from yank_outputs directory
+(3) Delete dry_yank_results/yank_mols_done.json
+
+This will run all the systems again. Since octanol phase is completed, it should skip that phase.
+
+

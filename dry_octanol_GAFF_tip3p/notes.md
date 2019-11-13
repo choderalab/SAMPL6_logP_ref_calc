@@ -198,3 +198,64 @@ $ cp ./extra_equilibration/equilibration/3/equil_pdbs/*.pdb ./dry_runs/t3/t3_dry
 3) Edit `/dry_yank_results/dry_yank_mols_done.json` to remove the names of simulations I want to run again. Leave the names of simulations that we do not need to run.
 
 
+## 2019/09/09
+
+### Analysis of new simulations
+
+All SAMPL6 molecule runs finished properly.
+
+$ cd dry_runs/analysis  
+$ python test_SAMPL6_molecules.py  
+$ python test_extra_molecules.py  
+$ grep NaN  SAMPL6_mols_trial_t*_GAFF_tip3p_dryoct.json  
+
+Only problematic simulation in t1:  Sulfamethazine_octanol_0.0_1.0_GAFF_tip3p_equil
+
+To rerun equilibration for this system I removed Sulfamethazine entry form: `/extra_equilibration/equilibration/1/equil_results/equil_done.json`.
+Then I resubmitted equilibration job:  
+$ cd ./extra_equilibration/equilibration/1
+$ bsub < equil-lsf.sh 
+
+Copied finished equilibrated sulfamethazine PDBs to input directory of YANK runs:  
+$ cd dry_runs/t1/t1_dry_oct_pdbs  
+$ cp /data/chodera/misik/SAMPL6_logP_ref_calc/dry_octanol_GAFF_tip3p/extra_equilibration/equilibration/1/equil_pdbs/Sulfamethazine_water_0.0_1.0_GAFF_tip3p_equil.pdb ./  
+$ cp /data/chodera/misik/SAMPL6_logP_ref_calc/dry_octanol_GAFF_tip3p/extra_equilibration/equilibration/1/equil_pdbs/Sulfamethazine_octanol_0.0_1.0_GAFF_tip3p_equil.pdb ./  
+$ bsub < dry_yank_run-lsf.sh  
+
+
+## 2019/11/07
+
+### CORRECTION OF LAMBDA STERICS PROTOCOL
+
+We realized the previous lambda schedule used for water phase was wrong. 
+The protocol used to decouple the Lennard-Jones interactions for the water phase was not appropriate. 
+Our protocol did not scale steric interactions ( $\lambda$ = [1.00, 1.00, 1.00, 1.00, 1.00]). 
+This choice would have been appropriate for a vacuum phase, but not for water phase.  
+In the DFE protocol as implemented the thermodynamic cycle do not close because the calculations do not account for turning on Lennard-Jones interactions of the molecule in water phase. 
+The correct alchemical protocol would be the same protocol used for the octanol phase.
+
+#### Tasks for this correction:
+
+(1) Update protocol of solvent 2 in yank.yaml.
+
+protocols:
+    hydration-protocol:
+        solvent1:
+            alchemical_path:
+                lambda_electrostatics: [1.00, 0.75, 0.50, 0.25, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
+                lambda_sterics: [1.00, 1.00, 1.00, 1.00, 1.00, 0.95, 0.90, 0.80, 0.70, 0.60, 0.50, 0.40, 0.35, 0.30, 0.25, 0.20, 0.15, 0.10, 0.05, 0.00]
+        solvent2:
+            alchemical_path:
+                lambda_electrostatics: [1.00, 0.75, 0.50, 0.25, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
+                lambda_sterics: [1.00, 1.00, 1.00, 1.00, 1.00, 0.95, 0.90, 0.80, 0.70, 0.60, 0.50, 0.40, 0.35, 0.30, 0.25, 0.20, 0.15, 0.10, 0.05, 0.00]
+
+(2) Delete solvent2.nc file from yank_outputs directory
+$ rm dry_yank_output/*/solvent2.nc
+$ rm dry_yank_output/*/solvent2_checkpoint.nc
+
+(3) Delete dry_yank_results/yank_mols_done.json
+
+This will run all the systems again. Since octanol phase is completed, it should skip that phase.
+
+
+
