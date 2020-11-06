@@ -1,0 +1,68 @@
+## 2019/12/15
+
+### Start rerunning water phases of GAFF-OPC-wet calculations
+
+I organized the incomplete trajectories sent to my by Danielle in the following directories and started running water phases.
+
+wet_octanol_GAFF_opc	  wet_octanol_GAFF_tip3pFB  wet_octanol_SMIRNOFF_tip3p
+wet_octanol_GAFF_tip3p  wet_octanol_SMIRNOFF_opc  wet_octanol_SMIRNOFF_tip3pFB
+
+
+## 2019/12/16
+
+### Checking progress of wet runs
+
+$ cd wet_octanol_GAFF_opc/t2/
+$ python check_incomplete_runs.py
+Incomplete systems:
+['Acebutolol_water_octanol_0.0_0.2705_0.7295_GAFF_opc_equil', 'Celiprolol_water_octanol_0.0_0.2705_0.7295_GAFF_opc_equil']
+Completed: 36/38
+
+$ cd wet_octanol_GAFF_tip3p/t2/
+$ python check_incomplete_runs.py
+Incomplete systems:
+[]
+Completed: 38/38
+
+$ cd wet_octanol_GAFF_tip3pFB/t2/
+$ python check_incomplete_runs.py
+Incomplete systems:
+[]
+Completed: 38/38
+
+
+### Analyzing wet GAFF runs
+
+$ source activate SAMPL6_logP
+$ cd wet_octanol_GAFF_opc/analysis
+$ python test_extra_molecules.py  
+$ python test_SAMPL6_molecules.py 
+All runs completed.
+
+
+### Submit water reruns of wet SMIRNOFF calculations
+
+I submitted runs of following directories:
+ wet_octanol_SMIRNOFF_opc 
+ wet_octanol_SMIRNOFF_tip3p
+ wet_octanol_SMIRNOFF_tip3pFB
+
+
+## 2020/01/14
+
+### Generate analysis notebooks for health report
+
+$ source activate SAMPL6_logP
+$ yank analyze report --store=wet_yank_output/35Dichlorophenol_water_octanol_0.0_0.2705_0.7295_GAFF_tip3p_equil --output=trial_2_35Dichlorophenol_wet_GAFF_TIP3P.ipynb --format ipynb
+
+
+### Generate analysis notebook for the health report of only the water phase (
+
+In wet_yank_outputs/35Dichlorophenol_water_octanol_0.0_0.2705_0.7295_GAFF_tip3p_equil/analysis.yaml comment out the first solvent, like this:
+#- - solvent1
+#  - 1
+- - solvent2
+  - -1
+
+$ source activate SAMPL6_logP
+$ yank analyze report --store=wet_yank_output/35Dichlorophenol_water_octanol_0.0_0.2705_0.7295_GAFF_tip3p_equil --output=hydration_trial_2_35Dichlorophenol_wet_GAFF_TIP3P.ipynb --format ipynb

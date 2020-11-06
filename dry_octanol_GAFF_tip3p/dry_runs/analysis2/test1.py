@@ -34,7 +34,7 @@ for trial_number in trials:
             print("{}% of trial {} collected..".format(round(float(mol/len(directory_mol_list)*100),2),idx))
     
     #update output file name for trial 1, 2, and 3
-    filename = "trial{}_dry.pickle".format(trial_number)
+    filename = "trial{}_dry_octanol_GAFF_tip3p.pickle".format(trial_number)
 
     with open(filename, 'wb') as handle:
         pickle.dump(all_mols, handle, protocol=pickle.HIGHEST_PROTOCOL)
